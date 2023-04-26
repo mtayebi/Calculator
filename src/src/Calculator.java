@@ -20,7 +20,7 @@ public class Calculator implements ActionListener {
         // build our frame for putting components
         jFrame = new JFrame("Calculator");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(600, 550);
+        jFrame.setSize(600, 500);
         jFrame.setResizable(false);
         jFrame.setLayout(null);
 
@@ -110,6 +110,60 @@ public class Calculator implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        for(int i=0; i < 10; i++){
+            if(e.getSource() == numberButtons[i]){
+                textField.setText(textField.getText().concat(String.valueOf(i)));
+            }
+        }
+        if(e.getSource() == dotButton){
+            textField.setText(textField.getText().concat("."));
+        }
+
+        if(e.getSource() == addButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '+';
+            textField.setText("");
+        }
+        if(e.getSource() == subButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '-';
+            textField.setText("");
+        }
+        if(e.getSource() == mulButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '*';
+            textField.setText("");
+        }
+        if(e.getSource() == divButton){
+            num1 = Double.parseDouble(textField.getText());
+            operator = '/';
+            textField.setText("");
+        }
+        if(e.getSource() == clrButton){
+            textField.setText("");
+        }
+        if(e.getSource() == delButton){
+            String tempNumber = textField.getText();
+            textField.setText("");
+            for (int i=0; i < tempNumber.length()-1; i++){
+                textField.setText(textField.getText()+tempNumber.charAt(i));
+            }
+        }
+
+        if(e.getSource() == eqButton){
+            num2 = Double.parseDouble(textField.getText());
+            double result = switch (operator){
+                case '+'->  num1+num2;
+                case '-'-> num1-num2;
+                case '*'-> num1*num2;
+                case '/'-> num1/num2;
+
+                default -> 0;
+            };
+            textField.setText("");
+            textField.setText(String.valueOf(result));
+            num1 = result;
+        }
 
     }
 }
